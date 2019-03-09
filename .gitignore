@@ -38,6 +38,8 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+.gitignore
+.build
 
 ## Obj-C/Swift specific
 *.hmap
