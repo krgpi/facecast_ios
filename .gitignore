@@ -10,6 +10,7 @@ xcuserdata/
 **/*.xcodeproj/project.xcworkspace
 **/*.playground/playground.xcworkspace
 Documentation
+SocketIO.swift
 
 # Carthage
 #

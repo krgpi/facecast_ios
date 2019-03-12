@@ -40,10 +40,10 @@ class eyeGaze: NSObject, VirtualContentController { //Transmmit eyeGazes and Fac
         
         rightEyeNode.simdTransform = faceAnchor.rightEyeTransform
         leftEyeNode.simdTransform = faceAnchor.leftEyeTransform
-        emitArray["eyeL"] = faceAnchor.leftEyeTransform.columns.2.y
-        emitArray["eyeR"] = faceAnchor.rightEyeTransform.columns.2.y
-        emitArray["faceDir"] = faceAnchor.transform.columns.2.y
-        
+        emitArray["eyeL"] = asin(faceAnchor.leftEyeTransform.columns.2.x)
+        emitArray["eyeR"] = asin(faceAnchor.rightEyeTransform.columns.2.x)
+        emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
+        print(emitArray)
         do {
             let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
             let str = String(bytes: e, encoding: .utf8)
