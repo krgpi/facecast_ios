@@ -92,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */,
-				B6F14D2E220314BF003EE574 /* SocketIO.swift */,
 				B6BAAE1021F9723400D329EE /* Starscream.framework */,
 				B6BAAE0E21F971DC00D329EE /* SocketIO.framework */,
 				11F053B72130CCD2005FCAF2 /* ARFaceGeometry.obj */,
@@ -114,6 +113,7 @@
 		3929C48A1E89EC2C00E00B60 /* faceCast */ = {
 			isa = PBXGroup;
 			children = (
+				B6F14D2E220314BF003EE574 /* SocketIO.swift */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
 				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
 				B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */,
@@ -195,6 +195,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
