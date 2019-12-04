@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		116FDD742130A6BD008404D3 /* eyeGaze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116FDD732130A6BD008404D3 /* eyeGaze.swift */; };
-		11EE23D2213479CF00C0DEAD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EE23D1213479CF00C0DEAD /* Utilities.swift */; };
+		11EE23D2213479CF00C0DEAD /* SCNMatrix4+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EE23D1213479CF00C0DEAD /* SCNMatrix4+.swift */; };
 		3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */; };
-		3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48D1E89EC2C00E00B60 /* ViewController.swift */; };
+		3929C48E1E89EC2C00E00B60 /* emitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3929C48D1E89EC2C00E00B60 /* emitViewController.swift */; };
 		3929C4911E89EC2C00E00B60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3929C48F1E89EC2C00E00B60 /* Main.storyboard */; };
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
@@ -42,11 +42,11 @@
 
 /* Begin PBXFileReference section */
 		116FDD732130A6BD008404D3 /* eyeGaze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eyeGaze.swift; sourceTree = "<group>"; };
-		11EE23D1213479CF00C0DEAD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		11EE23D1213479CF00C0DEAD /* SCNMatrix4+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNMatrix4+.swift"; sourceTree = "<group>"; };
 		11F053B72130CCD2005FCAF2 /* ARFaceGeometry.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ARFaceGeometry.obj; sourceTree = "<group>"; };
 		3929C4881E89EC2C00E00B60 /* faceCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = faceCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3929C48D1E89EC2C00E00B60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3929C48D1E89EC2C00E00B60 /* emitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emitViewController.swift; sourceTree = "<group>"; };
 		3929C4901E89EC2C00E00B60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3929C4921E89EC2C00E00B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,6 +79,8 @@
 		1488324C1EFC3ED00043E0AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */,
+				11F053B72130CCD2005FCAF2 /* ARFaceGeometry.obj */,
 				3929C49E1E89EE4400E00B60 /* Models.scnassets */,
 				3929C4921E89EC2C00E00B60 /* Assets.xcassets */,
 				3929C4971E89EC2C00E00B60 /* Info.plist */,
@@ -91,11 +93,8 @@
 		3929C47F1E89EC2C00E00B60 = {
 			isa = PBXGroup;
 			children = (
-				B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */,
-				B6F14D2E220314BF003EE574 /* SocketIO.swift */,
 				B6BAAE1021F9723400D329EE /* Starscream.framework */,
 				B6BAAE0E21F971DC00D329EE /* SocketIO.framework */,
-				11F053B72130CCD2005FCAF2 /* ARFaceGeometry.obj */,
 				3929C48A1E89EC2C00E00B60 /* faceCast */,
 				3929C4891E89EC2C00E00B60 /* Products */,
 				BC754050BC76E0E000000001 /* Configuration */,
@@ -114,14 +113,24 @@
 		3929C48A1E89EC2C00E00B60 /* faceCast */ = {
 			isa = PBXGroup;
 			children = (
+				49225D4E239753BE00177BE5 /* Class */,
 				3929C48B1E89EC2C00E00B60 /* AppDelegate.swift */,
-				3929C48D1E89EC2C00E00B60 /* ViewController.swift */,
+				3929C48D1E89EC2C00E00B60 /* emitViewController.swift */,
 				B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */,
 				C8904E581F4CFE380089E530 /* Face Overlay Content */,
-				11EE23D1213479CF00C0DEAD /* Utilities.swift */,
+				11EE23D1213479CF00C0DEAD /* SCNMatrix4+.swift */,
 				1488324C1EFC3ED00043E0AB /* Resources */,
 			);
 			path = faceCast;
+			sourceTree = "<group>";
+		};
+		49225D4E239753BE00177BE5 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				B6F14D2E220314BF003EE574 /* SocketIO.swift */,
+				C8904E541F4CFD000089E530 /* VirtualContent.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 		B6BAADFF21F9692100D329EE /* Frameworks */ = {
@@ -143,7 +152,6 @@
 		C8904E581F4CFE380089E530 /* Face Overlay Content */ = {
 			isa = PBXGroup;
 			children = (
-				C8904E541F4CFD000089E530 /* VirtualContent.swift */,
 				116FDD732130A6BD008404D3 /* eyeGaze.swift */,
 				C8904E561F4CFD730089E530 /* emotion.swift */,
 			);
@@ -195,6 +203,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -251,11 +260,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				116FDD742130A6BD008404D3 /* eyeGaze.swift in Sources */,
-				3929C48E1E89EC2C00E00B60 /* ViewController.swift in Sources */,
+				3929C48E1E89EC2C00E00B60 /* emitViewController.swift in Sources */,
 				3929C48C1E89EC2C00E00B60 /* AppDelegate.swift in Sources */,
 				C8904E551F4CFD000089E530 /* VirtualContent.swift in Sources */,
 				B6F14D2F220314BF003EE574 /* SocketIO.swift in Sources */,
-				11EE23D2213479CF00C0DEAD /* Utilities.swift in Sources */,
+				11EE23D2213479CF00C0DEAD /* SCNMatrix4+.swift in Sources */,
 				B6085FBE2201D6FC0004C2BA /* receiveViewController.swift in Sources */,
 				C8904E571F4CFD730089E530 /* emotion.swift in Sources */,
 			);
