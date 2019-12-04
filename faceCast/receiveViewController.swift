@@ -1,9 +1,10 @@
-/*
- See LICENSE folder for this sample’s licensing information.
- 
- Abstract:
- Main view controller for the AR experience.
- */
+//
+//  receiveViewController.swift
+//  receive blendshapes array from socket connection
+//  and display them.
+//
+//  Created by y.k. noaki on 2019/01/31.
+//
 
 import ARKit
 import SceneKit
@@ -11,15 +12,15 @@ import UIKit
 import SocketIO
 
 class receiveViewController: UIViewController {
-	
+
 	@IBOutlet var sceneView: ARSCNView!
-	
+
 	var currentFaceAnchor: ARFaceAnchor?
-	
+
 	var socket = SocketIOManager()
 	var top: NSDictionary!
 	var blendArray: [ARFaceAnchor.BlendShapeLocation: NSNumber]!
-	
+
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
@@ -40,13 +41,12 @@ class receiveViewController: UIViewController {
 			}
 		}
 		
-//		sceneView.delegate = self
 		sceneView.session.delegate = self
 		sceneView.automaticallyUpdatesLighting = true
 		sceneView.scene.background.contents = UIColor.lightGray
 		
 	}
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		
 		let faceGeometry = ARSCNFaceGeometry.init(device: sceneView.device!)!
@@ -64,11 +64,11 @@ class receiveViewController: UIViewController {
 		socket.socketIOClient.connect()
 		
 	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-//        socket.socketIOClient.emit("client_to_server_join", 0)
+		socket.socketIOClient.emit("client_to_server_join", 0)
 		// AR experiences typically involve moving the device without
 		// touch input for some time, so prevent auto screen dimming.
 		UIApplication.shared.isIdleTimerDisabled = true
@@ -76,11 +76,12 @@ class receiveViewController: UIViewController {
 		// "Reset" to run the AR session for the first time.
 		resetTracking()
 	}
-	
+
 	override func viewDidDisappear(_ animated: Bool) {
 		socket.closeConnection()
 	}
 }
+
 	// MARK: - ARSessionDelegate
 extension receiveViewController: ARSessionDelegate {
 	func session(_ session: ARSession, didFailWithError error: Error) {
@@ -98,7 +99,7 @@ extension receiveViewController: ARSessionDelegate {
 			self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
 		}
 	}
-	
+
 	/// - Tag: ARFaceTrackingSetup
 	func resetTracking() {
 		guard ARFaceTrackingConfiguration.isSupported else { return }
@@ -106,9 +107,9 @@ extension receiveViewController: ARSessionDelegate {
 		configuration.isLightEstimationEnabled = true
 		sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
 	}
-	
+
 	// MARK: - Error handling
-	
+
 	func displayErrorMessage(title: String, message: String) {
 		// Present an alert informing about the error that has occurred.
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

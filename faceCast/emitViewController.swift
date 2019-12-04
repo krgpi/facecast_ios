@@ -1,9 +1,9 @@
-/*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-Main view controller for the AR experience.
-*/
+//
+//  emitViewController.swift
+//  emit blendshapes array to socket connection.
+//
+//  Created by y.k. noaki on 2019/01/31.
+//
 
 import ARKit
 import SceneKit
@@ -11,16 +11,13 @@ import UIKit
 import SocketIO
 
 class emitViewController: UIViewController {
-	
-	// MARK: Outlets
 
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var tabBar: UITabBar!
-//    var socket = SocketIOManager()
-	// MARK: Properties
 
+	var socket = SocketIOManager()
+	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
-	
 	var selectedVirtualContent: VirtualContentType! {
 		didSet {
 			guard oldValue != nil, oldValue != selectedVirtualContent
@@ -51,14 +48,15 @@ class emitViewController: UIViewController {
 			return controller
 		}
 	}
-	
+
 	var currentFaceAnchor: ARFaceAnchor?
-	
+
 	// MARK: - View Controller Life Cycle
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//        socket.establishConnection()
+		socket.establishConnection()
+		socket.socketIOClient.emit("client_to_server_join", 1)
 		sceneView.delegate = self
 		sceneView.session.delegate = self
 		sceneView.automaticallyUpdatesLighting = true
@@ -67,8 +65,7 @@ class emitViewController: UIViewController {
 		tabBar.selectedItem = tabBar.items!.first!
 		selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
 	}
-	
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
@@ -81,7 +78,7 @@ class emitViewController: UIViewController {
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
-//        socket.closeConnection()
+		socket.closeConnection()
 	}
 }
 
@@ -102,7 +99,7 @@ extension emitViewController: ARSessionDelegate {
 			self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
 		}
 	}
-	
+
 	/// - Tag: ARFaceTrackingSetup
 	func resetTracking() {
 		guard ARFaceTrackingConfiguration.isSupported else { return }
@@ -110,9 +107,9 @@ extension emitViewController: ARSessionDelegate {
 		configuration.isLightEstimationEnabled = true
 		sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
 	}
-	
+
 	// MARK: - Error handling
-	
+
 	func displayErrorMessage(title: String, message: String) {
 		// Present an alert informing about the error that has occurred.
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -125,6 +122,7 @@ extension emitViewController: ARSessionDelegate {
 	}
 }
 
+	// MARK: - UITabBarDelegate
 extension emitViewController: UITabBarDelegate {
 	func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
 		guard let contentType = VirtualContentType(rawValue: item.tag)
@@ -133,6 +131,7 @@ extension emitViewController: UITabBarDelegate {
 	}
 }
 
+	// MARK: -ARSCNViewDelegate
 extension emitViewController: ARSCNViewDelegate {
 		
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -152,7 +151,20 @@ extension emitViewController: ARSCNViewDelegate {
 			let contentNode = selectedContentController.contentNode,
 			contentNode.parent == node
 			else { return }
-		
+		guard let faceAnchor = anchor as? ARFaceAnchor
+			else { return }
+//		var blendShapes = faceAnchor.blendShapes
+		emitArray["eyeL"] = asin(faceAnchor.leftEyeTransform.columns.2.x)
+		emitArray["eyeR"] = asin(faceAnchor.rightEyeTransform.columns.2.x)
+		emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
+		print(emitArray)
+		do {
+			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
+			let str = String(bytes: e, encoding: .utf8)
+			socket.socketIOClient.emit("chat message", str!)
+		} catch  {
+			print("err")
+		}
 		selectedContentController.renderer(renderer, didUpdate: contentNode, for: anchor)
 	}
 }
