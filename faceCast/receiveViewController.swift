@@ -10,7 +10,7 @@ import SceneKit
 import UIKit
 import SocketIO
 
-class receiveViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
+class receiveViewController: UIViewController {
 	
 	@IBOutlet var sceneView: ARSCNView!
 	
@@ -40,7 +40,7 @@ class receiveViewController: UIViewController, ARSCNViewDelegate, ARSessionDeleg
 			}
 		}
 		
-		sceneView.delegate = self
+//		sceneView.delegate = self
 		sceneView.session.delegate = self
 		sceneView.automaticallyUpdatesLighting = true
 		sceneView.scene.background.contents = UIColor.lightGray
@@ -80,9 +80,9 @@ class receiveViewController: UIViewController, ARSCNViewDelegate, ARSessionDeleg
 	override func viewDidDisappear(_ animated: Bool) {
 		socket.closeConnection()
 	}
-	
+}
 	// MARK: - ARSessionDelegate
-	
+extension receiveViewController: ARSessionDelegate {
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		guard error is ARError else { return }
 		
