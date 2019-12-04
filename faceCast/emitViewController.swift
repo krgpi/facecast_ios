@@ -10,7 +10,7 @@ import SceneKit
 import UIKit
 import SocketIO
 
-class ViewController: UIViewController, ARSessionDelegate {
+class emitViewController: UIViewController, ARSessionDelegate {
 	
 	// MARK: Outlets
 
@@ -123,7 +123,7 @@ class ViewController: UIViewController, ARSessionDelegate {
 	}
 }
 
-extension ViewController: UITabBarDelegate {
+extension emitViewController: UITabBarDelegate {
 	func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
 		guard let contentType = VirtualContentType(rawValue: item.tag)
 			else { fatalError("unexpected virtual content tag") }
@@ -131,7 +131,7 @@ extension ViewController: UITabBarDelegate {
 	}
 }
 
-extension ViewController: ARSCNViewDelegate {
+extension emitViewController: ARSCNViewDelegate {
 		
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		guard let faceAnchor = anchor as? ARFaceAnchor else { return }

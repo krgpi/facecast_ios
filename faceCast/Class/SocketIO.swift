@@ -9,7 +9,7 @@ import SocketIO
 
 class SocketIOManager: NSObject {
 	
-	var manager:SocketManager!
+	var manager: SocketManager!
 	var socketIOClient: SocketIOClient!
 	
 	override init(){
