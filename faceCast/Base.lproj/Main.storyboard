@@ -60,8 +60,8 @@
                                 <rect key="frame" x="0.0" y="675" width="375" height="83"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem title="iOS - Web" image="transforms" id="E1z-NA-Fpn"/>
-                                    <tabBarItem tag="1" title="iOS - iOS" image="texture" id="ojh-No-ZFu"/>
+                                    <tabBarItem title="eye coordinate" image="transforms" id="E1z-NA-Fpn"/>
+                                    <tabBarItem tag="1" title="diffuse to face" image="texture" id="ojh-No-ZFu"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="DBZ-Ne-uk1"/>
