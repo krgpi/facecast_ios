@@ -10,7 +10,7 @@ import SceneKit
 import UIKit
 import SocketIO
 
-class emitViewController: UIViewController, ARSessionDelegate {
+class emitViewController: UIViewController {
 	
 	// MARK: Outlets
 
@@ -83,8 +83,10 @@ class emitViewController: UIViewController, ARSessionDelegate {
 	override func viewDidDisappear(_ animated: Bool) {
 //        socket.closeConnection()
 	}
-	// MARK: - ARSessionDelegate
+}
 
+	// MARK: - ARSessionDelegate
+extension emitViewController: ARSessionDelegate {
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		guard error is ARError else { return }
 		
