@@ -15,19 +15,19 @@ class SocketIOManager: NSObject {
 	override init(){
 		manager = SocketManager(socketURL: URL(string: "http://[yourURL]:[yourPort]/")!, config: [.log(false),.compress])
 		socketIOClient = manager.defaultSocket
-		socketIOClient.on(clientEvent: .connect) {data, ack in
+		socketIOClient.on(clientEvent: .connect) { data, ack in
 			print(data)
 			print("socket connected")
 		}
-		socketIOClient.on(clientEvent: .error) { (data, eck) in
+		socketIOClient.on(clientEvent: .error) { data, ack in
 			print(data)
 			print("socket error")
 		}
-		socketIOClient.on(clientEvent: .disconnect) { (data, eck) in
+		socketIOClient.on(clientEvent: .disconnect) { data, ack in
 			print(data)
 			print("socket disconnect")
 		}
-		socketIOClient.on(clientEvent: SocketClientEvent.reconnect) { (data, eck) in
+		socketIOClient.on(clientEvent: SocketClientEvent.reconnect) { data, ack in
 			print(data)
 			print("socket reconnect")
 		}
