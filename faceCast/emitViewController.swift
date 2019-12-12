@@ -8,14 +8,15 @@
 import ARKit
 import SceneKit
 import UIKit
-import SocketIO
+//import SocketIO
 
 class emitViewController: UIViewController {
 
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var tabBar: UITabBar!
-
-	var socket = SocketIOManager()
+	@IBOutlet weak var debugLabelView: UILabel!
+	
+//	var socket = SocketIOManager()
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
 	var selectedVirtualContent: VirtualContentType! {
@@ -55,8 +56,8 @@ class emitViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		socket.establishConnection()
-		socket.socketIOClient.emit("client_to_server_join", 1)
+//		socket.establishConnection()
+//		socket.socketIOClient.emit("client_to_server_join", 1)
 		sceneView.delegate = self
 		sceneView.session.delegate = self
 		sceneView.automaticallyUpdatesLighting = true
@@ -78,7 +79,7 @@ class emitViewController: UIViewController {
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
-		socket.closeConnection()
+//		socket.closeConnection()
 	}
 }
 
@@ -158,10 +159,11 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["eyeR"] = asin(faceAnchor.rightEyeTransform.columns.2.x)
 		emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
 		print(emitArray)
+		debugLabelView.text = emitArray.description
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
 			let str = String(bytes: e, encoding: .utf8)
-			socket.socketIOClient.emit("chat message", str!)
+//			socket.socketIOClient.emit("chat message", str!)
 		} catch  {
 			print("err")
 		}

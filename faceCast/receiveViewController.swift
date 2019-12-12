@@ -9,7 +9,7 @@
 import ARKit
 import SceneKit
 import UIKit
-import SocketIO
+//import SocketIO
 
 class receiveViewController: UIViewController {
 
@@ -25,21 +25,21 @@ class receiveViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		socket.socketIOClient.on("chat message"){data,ack in
-			print("received!!")
-			guard let cur = data[0] as? String else {
-				print(data)
-				return }
-			print(data)
-			let orgdata: Data = cur.data(using: String.Encoding.utf8)!
-			do {
-				let json = try JSONSerialization.jsonObject(with: orgdata, options: JSONSerialization.ReadingOptions.allowFragments)
-				self.top = json as! NSDictionary
-				self.blendArray = self.top as! [ARFaceAnchor.BlendShapeLocation : NSNumber]
-			} catch {
-				print(error)
-			}
-		}
+//		socket.socketIOClient.on("chat message"){data,ack in
+//			print("received!!")
+//			guard let cur = data[0] as? String else {
+//				print(data)
+//				return }
+//			print(data)
+//			let orgdata: Data = cur.data(using: String.Encoding.utf8)!
+//			do {
+//				let json = try JSONSerialization.jsonObject(with: orgdata, options: JSONSerialization.ReadingOptions.allowFragments)
+//				self.top = json as! NSDictionary
+//				self.blendArray = self.top as! [ARFaceAnchor.BlendShapeLocation : NSNumber]
+//			} catch {
+//				print(error)
+//			}
+//		}
 		
 		sceneView.session.delegate = self
 		sceneView.automaticallyUpdatesLighting = true
@@ -61,14 +61,14 @@ class receiveViewController: UIViewController {
 		}
 		self.sceneView.scene.rootNode.addChildNode(contentNode)
 		
-		socket.socketIOClient.connect()
+//		socket.socketIOClient.connect()
 		
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		socket.socketIOClient.emit("client_to_server_join", 0)
+//		socket.socketIOClient.emit("client_to_server_join", 0)
 		// AR experiences typically involve moving the device without
 		// touch input for some time, so prevent auto screen dimming.
 		UIApplication.shared.isIdleTimerDisabled = true
@@ -78,7 +78,7 @@ class receiveViewController: UIViewController {
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
-		socket.closeConnection()
+//		socket.closeConnection()
 	}
 }
 
