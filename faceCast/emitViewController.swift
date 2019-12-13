@@ -160,7 +160,7 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
 		print(emitArray)
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "L: \(self.emitArray["eyeL"]),R: \(self.emitArray["eyeR"]),face: \(self.emitArray["faceDir"])"
+			self.debugLabelView.text = "L: \(round(self.emitArray["eyeL"])),R: \(round(self.emitArray["eyeR"])),face: \(round(self.emitArray["faceDir"]))"
 		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
