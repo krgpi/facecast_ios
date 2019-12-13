@@ -155,16 +155,16 @@ extension emitViewController: ARSCNViewDelegate {
 		guard let faceAnchor = anchor as? ARFaceAnchor
 			else { return }
 //		var blendShapes = faceAnchor.blendShapes
-		emitArray["eyeL"] = asin(faceAnchor.leftEyeTransform.columns.2.x)
-		emitArray["eyeR"] = asin(faceAnchor.rightEyeTransform.columns.2.x)
-		emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
+		emitArray["eyeL"] = round(asin(faceAnchor.leftEyeTransform.columns.2.x))
+		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x))
+		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x))
 		print(emitArray)
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "L: \(round(self.emitArray["eyeL"])),R: \(round(self.emitArray["eyeR"])),face: \(round(self.emitArray["faceDir"]))"
+			self.debugLabelView.text = "L: \(self.emitArray["eyeL"]),R: \(self.emitArray["eyeR"]),face: \(self.emitArray["faceDir"])"
 		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
-//			let str = String(bytes: e, encoding: .utf8)
+			let str = String(bytes: e, encoding: .utf8)
 //			socket.socketIOClient.emit("chat message", str!)
 		} catch  {
 			print("err")
