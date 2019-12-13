@@ -159,10 +159,12 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["eyeR"] = asin(faceAnchor.rightEyeTransform.columns.2.x)
 		emitArray["faceDir"] = asin(faceAnchor.transform.columns.2.x)
 		print(emitArray)
-		debugLabelView.text = emitArray.description
+		DispatchQueue.main.async {
+			self.debugLabelView.text = "L: \(self.emitArray["eyeL"]),R: \(self.emitArray["eyeR"]),face: \(self.emitArray["faceDir"])"
+		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
-			let str = String(bytes: e, encoding: .utf8)
+//			let str = String(bytes: e, encoding: .utf8)
 //			socket.socketIOClient.emit("chat message", str!)
 		} catch  {
 			print("err")
