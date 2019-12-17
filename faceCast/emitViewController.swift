@@ -17,6 +17,27 @@ class emitViewController: UIViewController {
 	@IBOutlet weak var tabBar: UITabBar!
 	@IBOutlet weak var debugLabelView: UILabel!
 	
+	enum direction {
+		case main
+		case sub
+		var range: ClosedRange<Int> {
+			switch self {
+				case .main:
+					return 0...10
+				case .sub:
+					return 15...30
+			}
+		}
+		var textLabel: String {
+			switch self {
+				case .main:
+					return "メイン"
+				case .sub:
+					return "サブ"
+			}
+		}
+	}
+	
 //	var socket = SocketIOManager()
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
