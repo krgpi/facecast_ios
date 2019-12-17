@@ -213,7 +213,7 @@ extension emitViewController {
 	func startRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
 		recorder.startRecording(handler:{ error in
 			if error == nil {
-			sender.label = "Stop"
+				sender.setTitle("Stop", for: .normal)
 			} else {
 				print(error)
 			}
@@ -222,7 +222,7 @@ extension emitViewController {
 	
 	func stopRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
 		recorder.stopRecording(handler: { previewViewController, error in
-			sender.titleLabel = "Record"
+			sender.setTitle("Record", for: .focused)
 			if let pvc = previewViewController {
 				if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
 					pvc.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -238,4 +238,8 @@ extension emitViewController {
 			}
 		})
 	}
+}
+
+extension emitViewController: RPPreviewViewControllerDelegate {
+	
 }
