@@ -8,6 +8,7 @@
 import ARKit
 import SceneKit
 import UIKit
+import ReplayKit
 //import SocketIO
 
 class emitViewController: UIViewController {
@@ -173,3 +174,47 @@ extension emitViewController: ARSCNViewDelegate {
 	}
 }
 
+extension emitViewController {
+	
+	@IBAction func toggleRecording(_ sender: UIButton) {
+		let rpScreenRecorder = RPScreenRecorder.shared()
+		guard rpScreenRecorder.isAvailable else {
+			print("Replay Kit is unavailable")
+			return
+		}
+		if rpScreenRecorder.isRecording {
+			self.stopRecording(sender, rpScreenRecorder)
+		} else {
+			self.startRecording(sender, rpScreenRecorder)
+		}
+	}
+	
+	func startRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
+		recorder.startRecording(handler:{ error in
+			if error == nil {
+			sender.label = "Stop"
+			} else {
+				print(error)
+			}
+		})
+	}
+	
+	func stopRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
+		recorder.stopRecording(handler: { previewViewController, error in
+			sender.titleLabel = "Record"
+			if let pvc = previewViewController {
+				if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+					pvc.modalPresentationStyle = UIModalPresentationStyle.popover
+					pvc.popoverPresentationController?.sourceRect = CGRect.zero
+					pvc.popoverPresentationController?.sourceView = self.view
+				}
+				
+				pvc.previewControllerDelegate = self
+				self.present(pvc, animated: true, completion: nil)
+			}
+			else if let error = error {
+				print(error.localizedDescription)
+			}
+		})
+	}
+}
