@@ -15,6 +15,8 @@
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
+		49B2920023AA0EBD001FAA46 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B291FF23AA0EBD001FAA46 /* Charts.framework */; };
+		49B2920123AA0EBD001FAA46 /* Charts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49B291FF23AA0EBD001FAA46 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B6085FBE2201D6FC0004C2BA /* receiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */; };
 		B6ABF3EF22333EBC007AE46E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */; };
 		B6BAAE0C21F96FFB00D329EE /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6BAAE0021F9692100D329EE /* SocketIO.framework */; };
@@ -33,6 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				49B2920123AA0EBD001FAA46 /* Charts.framework in CopyFiles */,
 				B6BAAE0F21F971DC00D329EE /* SocketIO.framework in CopyFiles */,
 				B6BAAE1221F9723400D329EE /* Starscream.framework in CopyFiles */,
 			);
@@ -52,6 +55,7 @@
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3929C49E1E89EE4400E00B60 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		49B291FF23AA0EBD001FAA46 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = receiveViewController.swift; sourceTree = "<group>"; };
 		B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B6BAAE0021F9692100D329EE /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49B2920023AA0EBD001FAA46 /* Charts.framework in Frameworks */,
 				B6BAAE0C21F96FFB00D329EE /* SocketIO.framework in Frameworks */,
 				B6BAAE1121F9723400D329EE /* Starscream.framework in Frameworks */,
 			);
@@ -136,6 +141,7 @@
 		B6BAADFF21F9692100D329EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49B291FF23AA0EBD001FAA46 /* Charts.framework */,
 				B6BAAE0021F9692100D329EE /* SocketIO.framework */,
 			);
 			name = Frameworks;
@@ -243,6 +249,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SocketIO.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Starscream.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
 			);
 			outputFileListPaths = (
 			);

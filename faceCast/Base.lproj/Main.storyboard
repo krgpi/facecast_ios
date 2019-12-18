@@ -94,17 +94,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-2o-HWO" customClass="LineChartView" customModule="Charts">
+                                        <rect key="frame" x="261" y="8" width="443" height="193"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="Ecm-dh-tMn"/>
+                                    <constraint firstAttribute="trailing" secondItem="1h8-2o-HWO" secondAttribute="trailing" constant="8" id="KCp-dN-03p"/>
                                     <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="KkP-Tu-uvK"/>
                                     <constraint firstAttribute="height" constant="253" id="PnE-MQ-i7T"/>
+                                    <constraint firstItem="1h8-2o-HWO" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="RNJ-RI-1uM"/>
                                     <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="Sxs-gj-t2D"/>
                                     <constraint firstItem="E6c-py-dvH" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" id="TeM-W5-Oz1"/>
+                                    <constraint firstItem="1h8-2o-HWO" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" constant="8" id="VOi-Nn-Ep7"/>
                                     <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="leading" id="YTC-ZR-7Mc"/>
                                     <constraint firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" constant="8" id="sJc-Zf-HyD"/>
                                     <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="xuS-Sh-vZ7"/>
+                                    <constraint firstItem="Ner-d8-9Lc" firstAttribute="top" secondItem="1h8-2o-HWO" secondAttribute="bottom" constant="8" id="yJi-IA-DH1"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh1-nc-e8c" userLabel="HeaderView">
@@ -171,6 +179,7 @@
                     <navigationItem key="navigationItem" id="RRf-uQ-HZc"/>
                     <connections>
                         <outlet property="debugLabelView" destination="Ner-d8-9Lc" id="uHB-4J-C2B"/>
+                        <outlet property="iosChartsFigure" destination="1h8-2o-HWO" id="SdJ-R6-EXH"/>
                         <outlet property="sceneView" destination="E6c-py-dvH" id="Gr4-Uw-Z4A"/>
                         <outlet property="tabBar" destination="d27-hx-eNe" id="wGk-cE-feE"/>
                         <outlet property="urlInputField" destination="fxT-TV-ueY" id="qOl-Oi-aok"/>
