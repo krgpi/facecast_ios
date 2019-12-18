@@ -8,6 +8,7 @@
 import ARKit
 import SceneKit
 import UIKit
+import WebKit
 import ReplayKit
 //import SocketIO
 
@@ -16,6 +17,8 @@ class emitViewController: UIViewController {
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var tabBar: UITabBar!
 	@IBOutlet weak var debugLabelView: UILabel!
+	@IBOutlet var webView: WKWebView!
+	@IBOutlet weak var urlInputField: UITextField!
 	
 	enum direction {
 		case main
@@ -87,6 +90,12 @@ class emitViewController: UIViewController {
 		// Set the initial face content.
 		tabBar.selectedItem = tabBar.items!.first!
 		selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+		
+		let webUrl = URL(string: "https://topicnote.jp/")!
+		let myRequest = URLRequest(url: webUrl)
+		webView.load(myRequest)
+		
+		urlInputField.delegate = self
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -177,12 +186,11 @@ extension emitViewController: ARSCNViewDelegate {
 		guard let faceAnchor = anchor as? ARFaceAnchor
 			else { return }
 //		var blendShapes = faceAnchor.blendShapes
-		emitArray["eyeL"] = round(asin(faceAnchor.leftEyeTransform.columns.2.x))
-		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x))
-		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x))
-		print(emitArray)
+		emitArray["eyeL"] = round(asin(faceAnchor.leftEyeTransform.columns.2.x)*100)
+		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100)
+		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100)
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "L: \(self.emitArray["eyeL"]),R: \(self.emitArray["eyeR"]),face: \(self.emitArray["faceDir"])"
+			self.debugLabelView.text = "L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
 		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
@@ -195,51 +203,61 @@ extension emitViewController: ARSCNViewDelegate {
 	}
 }
 
-extension emitViewController {
-	
-	@IBAction func toggleRecording(_ sender: UIButton) {
-		let rpScreenRecorder = RPScreenRecorder.shared()
-		guard rpScreenRecorder.isAvailable else {
-			print("Replay Kit is unavailable")
+//extension emitViewController {
+//
+//	@IBAction func toggleRecording(_ sender: UIButton) {
+//		let rpScreenRecorder = RPScreenRecorder.shared()
+//		guard rpScreenRecorder.isAvailable else {
+//			print("Replay Kit is unavailable")
+//			return
+//		}
+//		if rpScreenRecorder.isRecording {
+//			self.stopRecording(sender, rpScreenRecorder)
+//		} else {
+//			self.startRecording(sender, rpScreenRecorder)
+//		}
+//	}
+//
+//	func startRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
+//		recorder.startRecording(handler:{ error in
+//			if error == nil {
+//				sender.setTitle("Stop", for: .normal)
+//			} else {
+//				print(error)
+//			}
+//		})
+//	}
+//
+//	func stopRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
+//		recorder.stopRecording(handler: { previewViewController, error in
+//			sender.setTitle("Record", for: .focused)
+//			if let pvc = previewViewController {
+//				if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+//					pvc.modalPresentationStyle = UIModalPresentationStyle.popover
+//					pvc.popoverPresentationController?.sourceRect = CGRect.zero
+//					pvc.popoverPresentationController?.sourceView = self.view
+//				}
+//
+//				pvc.previewControllerDelegate = self
+//				self.present(pvc, animated: true, completion: nil)
+//			}
+//			else if let error = error {
+//				print(error.localizedDescription)
+//			}
+//		})
+//	}
+//}
+
+extension emitViewController: UITextFieldDelegate {
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		guard let urlstr = textField.text else {
 			return
 		}
-		if rpScreenRecorder.isRecording {
-			self.stopRecording(sender, rpScreenRecorder)
-		} else {
-			self.startRecording(sender, rpScreenRecorder)
+		guard let webUrl = URL(string: urlstr) else {
+			return
 		}
+		let myRequest = URLRequest(url: webUrl)
+		webView.load(myRequest)
+		print("loading...")
 	}
-	
-	func startRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
-		recorder.startRecording(handler:{ error in
-			if error == nil {
-				sender.setTitle("Stop", for: .normal)
-			} else {
-				print(error)
-			}
-		})
-	}
-	
-	func stopRecording(_ sender: UIButton, _ recorder: RPScreenRecorder){
-		recorder.stopRecording(handler: { previewViewController, error in
-			sender.setTitle("Record", for: .focused)
-			if let pvc = previewViewController {
-				if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
-					pvc.modalPresentationStyle = UIModalPresentationStyle.popover
-					pvc.popoverPresentationController?.sourceRect = CGRect.zero
-					pvc.popoverPresentationController?.sourceView = self.view
-				}
-				
-				pvc.previewControllerDelegate = self
-				self.present(pvc, animated: true, completion: nil)
-			}
-			else if let error = error {
-				print(error.localizedDescription)
-			}
-		})
-	}
-}
-
-extension emitViewController: RPPreviewViewControllerDelegate {
-	
 }

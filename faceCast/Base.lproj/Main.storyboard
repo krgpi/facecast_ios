@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="ae7-4A-mbJ" customClass="receiveViewController" customModule="faceCast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GaK-0R-2g6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.9200564096436"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WLN-V7-qIK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                                <rect key="frame" x="0.0" y="0.0" width="712" height="1007"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGy-4L-PeZ">
                                 <rect key="frame" x="22" y="44" width="34" height="30"/>
@@ -50,14 +50,19 @@
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="emitViewController" customModule="faceCast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RLh-bf-1c3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="1006.9200564096436"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6c-py-dvH" customClass="ARSCNView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
-                            </sceneKitView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVq-xT-Jw5">
+                                <rect key="frame" x="0.0" y="0.0" width="712" height="704"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <tabBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="d27-hx-eNe">
-                                <rect key="frame" x="0.0" y="675" width="375" height="83"/>
+                                <rect key="frame" x="0.0" y="957" width="712" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <tabBarItem title="eye coordinate" image="transforms" id="E1z-NA-Fpn"/>
@@ -68,16 +73,41 @@
                                 </connections>
                             </tabBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-S0-eEv">
-                                <rect key="frame" x="312" y="0.0" width="47" height="30"/>
+                                <rect key="frame" x="649" y="0.0" width="47" height="30"/>
                                 <state key="normal" title="Viewer"/>
                                 <connections>
                                     <segue destination="ae7-4A-mbJ" kind="show" id="jpq-PU-deO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-d8-9Lc">
-                                <rect key="frame" x="78" y="611" width="218" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-I5-7gB">
+                                <rect key="frame" x="0.0" y="704" width="225" height="253"/>
+                                <subviews>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6c-py-dvH" customClass="ARSCNView">
+                                        <rect key="frame" x="0.0" y="0.0" width="225" height="253"/>
+                                    </sceneKitView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="E6c-py-dvH" secondAttribute="trailing" id="EC4-P8-uJJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="KkP-Tu-uvK"/>
+                                    <constraint firstAttribute="height" constant="253" id="PnE-MQ-i7T"/>
+                                    <constraint firstItem="E6c-py-dvH" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" id="TeM-W5-Oz1"/>
+                                    <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="leading" id="U0H-Cj-thv"/>
+                                    <constraint firstAttribute="width" constant="225" id="sua-bQ-GaI"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="input URL" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fxT-TV-ueY">
+                                <rect key="frame" x="225" y="704" width="487" height="28.5"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go" textContentType="url"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="測定結果を表示します" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-d8-9Lc">
+                                <rect key="frame" x="225" y="919" width="487" height="38"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="q4Q-m4-JYS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -85,15 +115,23 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="4Ch-Kb-0fx"/>
-                            <constraint firstItem="E6c-py-dvH" firstAttribute="trailing" secondItem="d27-hx-eNe" secondAttribute="trailing" id="7sF-as-KLl"/>
+                            <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" id="4WZ-aU-O3q"/>
+                            <constraint firstItem="kVq-xT-Jw5" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="9EI-7e-ezA"/>
+                            <constraint firstItem="6DQ-I5-7gB" firstAttribute="top" secondItem="kVq-xT-Jw5" secondAttribute="bottom" id="9XF-Wf-OI8"/>
                             <constraint firstAttribute="trailing" secondItem="d27-hx-eNe" secondAttribute="trailing" id="AG4-v4-dES"/>
+                            <constraint firstItem="kVq-xT-Jw5" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="KAj-I8-Bxh"/>
+                            <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="W45-IP-oK6"/>
+                            <constraint firstItem="fxT-TV-ueY" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="eIH-tv-48N"/>
                             <constraint firstItem="zlg-S0-eEv" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="g0I-wn-NcC"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="bottom" secondItem="RLh-bf-1c3" secondAttribute="bottom" symbolic="YES" id="gEr-ol-2EN"/>
-                            <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="d27-hx-eNe" secondAttribute="leading" id="rlX-It-0G6"/>
+                            <constraint firstItem="6DQ-I5-7gB" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="ggq-1g-c0U"/>
+                            <constraint firstItem="kVq-xT-Jw5" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="iC0-Bh-L60"/>
+                            <constraint firstItem="fxT-TV-ueY" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="l5T-ex-dJ4"/>
+                            <constraint firstItem="fxT-TV-ueY" firstAttribute="top" secondItem="kVq-xT-Jw5" secondAttribute="bottom" id="p5J-wU-8Mc"/>
+                            <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="sbP-bb-DJ3"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="txU-4e-gMI"/>
                             <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="zlg-S0-eEv" secondAttribute="trailing" constant="16" id="vAP-tY-drF"/>
-                            <constraint firstItem="E6c-py-dvH" firstAttribute="top" secondItem="RLh-bf-1c3" secondAttribute="top" id="yHv-rs-Wlk"/>
+                            <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="bottom" id="wiC-ud-tsG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GBj-4O-Whc"/>
                     </view>
@@ -101,28 +139,30 @@
                         <outlet property="debugLabelView" destination="Ner-d8-9Lc" id="uHB-4J-C2B"/>
                         <outlet property="sceneView" destination="E6c-py-dvH" id="Gr4-Uw-Z4A"/>
                         <outlet property="tabBar" destination="d27-hx-eNe" id="wGk-cE-feE"/>
+                        <outlet property="urlInputField" destination="fxT-TV-ueY" id="qOl-Oi-aok"/>
+                        <outlet property="webView" destination="kVq-xT-Jw5" id="7cB-La-2da"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="56.799999999999997" y="98.275862068965523"/>
+            <point key="canvasLocation" x="56.115107913669071" y="97.989949748743726"/>
         </scene>
         <!--Unsupported View Controller-->
         <scene sceneID="QPm-sc-AhW">
             <objects>
                 <viewController storyboardIdentifier="unsupportedDeviceMessage" id="Ww5-bb-kFx" userLabel="Unsupported View Controller" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nKl-Ig-Sg0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unsupported Device" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqL-yC-UYf">
-                                <rect key="frame" x="20" y="288.33333333333331" width="335" height="33.666666666666686"/>
+                                <rect key="frame" x="23" y="512" width="788" height="34"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ach-rh-boK">
-                                <rect key="frame" x="20" y="330" width="335" height="152.33333333333337"/>
+                                <rect key="frame" x="23" y="554" width="788" height="86.5"/>
                                 <string key="text">ARKit face tracking requires a device with a TrueDepth front-facing camera.
 
 Shipping apps must support devices without face tracking. In your app, offer UI to launch face tracking features only if the current device is supported.</string>
