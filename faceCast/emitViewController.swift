@@ -91,11 +91,9 @@ class emitViewController: UIViewController {
 		tabBar.selectedItem = tabBar.items!.first!
 		selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
 		
-		let webUrl = URL(string: "https://topicnote.jp/")!
+		let webUrl = URL(string: "https://www.google.com/?hl=ja")!
 		let myRequest = URLRequest(url: webUrl)
 		webView.load(myRequest)
-		
-		urlInputField.delegate = self
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -248,9 +246,10 @@ extension emitViewController: ARSCNViewDelegate {
 //	}
 //}
 
-extension emitViewController: UITextFieldDelegate {
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		guard let urlstr = textField.text else {
+extension emitViewController {
+	
+	@IBAction func goButtonDidTouchUpInside(_ sender: UIButton) {
+		guard let urlstr = urlInputField.text else {
 			return
 		}
 		guard let webUrl = URL(string: urlstr) else {
@@ -258,6 +257,6 @@ extension emitViewController: UITextFieldDelegate {
 		}
 		let myRequest = URLRequest(url: webUrl)
 		webView.load(myRequest)
-		print("loading...")
 	}
+	
 }

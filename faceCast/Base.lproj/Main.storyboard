@@ -37,6 +37,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bbe-iG-ZPu"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Zs4-Bg-wbw"/>
                     <connections>
                         <outlet property="sceneView" destination="WLN-V7-qIK" id="tdp-jN-HSt"/>
                     </connections>
@@ -54,7 +55,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVq-xT-Jw5">
-                                <rect key="frame" x="0.0" y="0.0" width="712" height="704"/>
+                                <rect key="frame" x="0.0" y="44" width="712" height="660"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -72,13 +73,6 @@
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="DBZ-Ne-uk1"/>
                                 </connections>
                             </tabBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-S0-eEv">
-                                <rect key="frame" x="649" y="0.0" width="47" height="30"/>
-                                <state key="normal" title="Viewer"/>
-                                <connections>
-                                    <segue destination="ae7-4A-mbJ" kind="show" id="jpq-PU-deO"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-I5-7gB">
                                 <rect key="frame" x="0.0" y="704" width="225" height="253"/>
                                 <subviews>
@@ -96,12 +90,48 @@
                                     <constraint firstAttribute="width" constant="225" id="sua-bQ-GaI"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="input URL" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fxT-TV-ueY">
-                                <rect key="frame" x="225" y="704" width="487" height="28.5"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go" textContentType="url"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh1-nc-e8c">
+                                <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-S0-eEv">
+                                        <rect key="frame" x="8" y="7" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="wT9-1A-DYM"/>
+                                        </constraints>
+                                        <state key="normal" title="Viewer"/>
+                                        <connections>
+                                            <segue destination="ae7-4A-mbJ" kind="show" id="jpq-PU-deO"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://..." textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="fxT-TV-ueY">
+                                        <rect key="frame" x="66" y="5" width="580" height="34"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="go" textContentType="url"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07N-ko-3fG">
+                                        <rect key="frame" x="654" y="7" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="mLb-bj-qrE"/>
+                                        </constraints>
+                                        <state key="normal" title="Go"/>
+                                        <connections>
+                                            <action selector="goButtonDidTouchUpInside:" destination="BV1-FR-VrT" eventType="touchUpInside" id="vlQ-T9-knj"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="07N-ko-3fG" firstAttribute="centerY" secondItem="Zh1-nc-e8c" secondAttribute="centerY" id="Bou-sx-mnJ"/>
+                                    <constraint firstAttribute="height" constant="44" id="TYz-NM-hT7"/>
+                                    <constraint firstItem="zlg-S0-eEv" firstAttribute="leading" secondItem="Zh1-nc-e8c" secondAttribute="leading" constant="8" id="V7G-zh-tKZ"/>
+                                    <constraint firstItem="zlg-S0-eEv" firstAttribute="centerY" secondItem="Zh1-nc-e8c" secondAttribute="centerY" id="bVI-KA-gfd"/>
+                                    <constraint firstAttribute="trailing" secondItem="07N-ko-3fG" secondAttribute="trailing" constant="8" id="bhr-QT-T4K"/>
+                                    <constraint firstItem="07N-ko-3fG" firstAttribute="leading" secondItem="fxT-TV-ueY" secondAttribute="trailing" constant="8" id="fLR-zb-Luj"/>
+                                    <constraint firstItem="fxT-TV-ueY" firstAttribute="centerY" secondItem="Zh1-nc-e8c" secondAttribute="centerY" id="hvA-So-dqo"/>
+                                    <constraint firstItem="fxT-TV-ueY" firstAttribute="leading" secondItem="zlg-S0-eEv" secondAttribute="trailing" constant="8" id="rde-GP-LxI"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="測定結果を表示します" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-d8-9Lc">
                                 <rect key="frame" x="225" y="919" width="487" height="38"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -117,24 +147,23 @@
                         <constraints>
                             <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" id="4WZ-aU-O3q"/>
                             <constraint firstItem="kVq-xT-Jw5" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="9EI-7e-ezA"/>
+                            <constraint firstItem="Zh1-nc-e8c" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="9M1-BL-c8G"/>
                             <constraint firstItem="6DQ-I5-7gB" firstAttribute="top" secondItem="kVq-xT-Jw5" secondAttribute="bottom" id="9XF-Wf-OI8"/>
                             <constraint firstAttribute="trailing" secondItem="d27-hx-eNe" secondAttribute="trailing" id="AG4-v4-dES"/>
                             <constraint firstItem="kVq-xT-Jw5" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="KAj-I8-Bxh"/>
+                            <constraint firstItem="Zh1-nc-e8c" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="R0G-Xf-PTE"/>
+                            <constraint firstItem="kVq-xT-Jw5" firstAttribute="top" secondItem="Zh1-nc-e8c" secondAttribute="bottom" id="Vlj-8g-Rhw"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="W45-IP-oK6"/>
-                            <constraint firstItem="fxT-TV-ueY" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="eIH-tv-48N"/>
-                            <constraint firstItem="zlg-S0-eEv" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="g0I-wn-NcC"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="bottom" secondItem="RLh-bf-1c3" secondAttribute="bottom" symbolic="YES" id="gEr-ol-2EN"/>
                             <constraint firstItem="6DQ-I5-7gB" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="ggq-1g-c0U"/>
-                            <constraint firstItem="kVq-xT-Jw5" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="iC0-Bh-L60"/>
-                            <constraint firstItem="fxT-TV-ueY" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="l5T-ex-dJ4"/>
-                            <constraint firstItem="fxT-TV-ueY" firstAttribute="top" secondItem="kVq-xT-Jw5" secondAttribute="bottom" id="p5J-wU-8Mc"/>
+                            <constraint firstItem="Zh1-nc-e8c" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="hqw-Si-Bht"/>
                             <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="sbP-bb-DJ3"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="txU-4e-gMI"/>
-                            <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="zlg-S0-eEv" secondAttribute="trailing" constant="16" id="vAP-tY-drF"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="bottom" id="wiC-ud-tsG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GBj-4O-Whc"/>
                     </view>
+                    <navigationItem key="navigationItem" id="RRf-uQ-HZc"/>
                     <connections>
                         <outlet property="debugLabelView" destination="Ner-d8-9Lc" id="uHB-4J-C2B"/>
                         <outlet property="sceneView" destination="E6c-py-dvH" id="Gr4-Uw-Z4A"/>
@@ -145,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="56.115107913669071" y="97.989949748743726"/>
+            <point key="canvasLocation" x="75.539568345323744" y="84.924623115577887"/>
         </scene>
         <!--Unsupported View Controller-->
         <scene sceneID="QPm-sc-AhW">
