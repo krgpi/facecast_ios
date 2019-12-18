@@ -73,24 +73,41 @@
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="DBZ-Ne-uk1"/>
                                 </connections>
                             </tabBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-I5-7gB">
-                                <rect key="frame" x="0.0" y="704" width="225" height="253"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-I5-7gB" userLabel="debugView">
+                                <rect key="frame" x="0.0" y="704" width="712" height="253"/>
                                 <subviews>
                                     <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6c-py-dvH" customClass="ARSCNView">
-                                        <rect key="frame" x="0.0" y="0.0" width="225" height="253"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="253" height="253"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="253" id="UNd-Yn-cg8"/>
+                                            <constraint firstAttribute="height" constant="253" id="dXk-0b-fjZ"/>
+                                        </constraints>
                                     </sceneKitView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="測定結果を表示します" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-d8-9Lc">
+                                        <rect key="frame" x="261" y="209" width="443" height="44"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="q4Q-m4-JYS"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="rYX-wb-Tn0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="E6c-py-dvH" secondAttribute="trailing" id="EC4-P8-uJJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="Ecm-dh-tMn"/>
                                     <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="KkP-Tu-uvK"/>
                                     <constraint firstAttribute="height" constant="253" id="PnE-MQ-i7T"/>
+                                    <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="Sxs-gj-t2D"/>
                                     <constraint firstItem="E6c-py-dvH" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" id="TeM-W5-Oz1"/>
-                                    <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="leading" id="U0H-Cj-thv"/>
-                                    <constraint firstAttribute="width" constant="225" id="sua-bQ-GaI"/>
+                                    <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="leading" id="YTC-ZR-7Mc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" constant="8" id="sJc-Zf-HyD"/>
+                                    <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="xuS-Sh-vZ7"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh1-nc-e8c">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh1-nc-e8c" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="0.0" width="712" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlg-S0-eEv">
@@ -132,20 +149,9 @@
                                     <constraint firstItem="fxT-TV-ueY" firstAttribute="leading" secondItem="zlg-S0-eEv" secondAttribute="trailing" constant="8" id="rde-GP-LxI"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="測定結果を表示します" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ner-d8-9Lc">
-                                <rect key="frame" x="225" y="919" width="487" height="38"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="q4Q-m4-JYS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" id="4WZ-aU-O3q"/>
                             <constraint firstItem="kVq-xT-Jw5" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="9EI-7e-ezA"/>
                             <constraint firstItem="Zh1-nc-e8c" firstAttribute="top" secondItem="GBj-4O-Whc" secondAttribute="top" id="9M1-BL-c8G"/>
                             <constraint firstItem="6DQ-I5-7gB" firstAttribute="top" secondItem="kVq-xT-Jw5" secondAttribute="bottom" id="9XF-Wf-OI8"/>
@@ -153,13 +159,12 @@
                             <constraint firstItem="kVq-xT-Jw5" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="KAj-I8-Bxh"/>
                             <constraint firstItem="Zh1-nc-e8c" firstAttribute="trailing" secondItem="GBj-4O-Whc" secondAttribute="trailing" id="R0G-Xf-PTE"/>
                             <constraint firstItem="kVq-xT-Jw5" firstAttribute="top" secondItem="Zh1-nc-e8c" secondAttribute="bottom" id="Vlj-8g-Rhw"/>
-                            <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="W45-IP-oK6"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="bottom" secondItem="RLh-bf-1c3" secondAttribute="bottom" symbolic="YES" id="gEr-ol-2EN"/>
                             <constraint firstItem="6DQ-I5-7gB" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="ggq-1g-c0U"/>
                             <constraint firstItem="Zh1-nc-e8c" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="hqw-Si-Bht"/>
-                            <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="sbP-bb-DJ3"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="txU-4e-gMI"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="bottom" id="wiC-ud-tsG"/>
+                            <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="xIX-PP-owm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GBj-4O-Whc"/>
                     </view>
