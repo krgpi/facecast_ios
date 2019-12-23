@@ -45,6 +45,10 @@ class emitViewController: UIViewController {
 		}
 	}
 	
+	var defFaceDir: Float =  0.0
+	var defL: Float = 0.0
+	var defR: Float = 0.0
+	
 //	var socket = SocketIOManager()
 	var emitArrayHistory: [String: [Float]] = ["time": [0.00], "eyeL": [0.00], "eyeR": [0.00], "faceDir": [0.00]]
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
@@ -93,23 +97,13 @@ class emitViewController: UIViewController {
 		sceneView.automaticallyUpdatesLighting = true
 		
 		// Set the initial face content.
-		tabBar.selectedItem = tabBar.items!.first!
-		selectedVirtualContent = VirtualContentType(rawValue: tabBar.selectedItem!.tag)
+		selectedVirtualContent = VirtualContentType(rawValue: 0)
 		
 		let webUrl = URL(string: "https://www.google.com/?hl=ja")!
 		let myRequest = URLRequest(url: webUrl)
 		webView.load(myRequest)
 		setChart()
-		timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
-		timer.fire()
-	}
-	
-	@objc func update(tm: Timer) {
-		let newTime = Float(emitArrayHistory["time"]?.last ?? Float(0.0)) + Float(tm.timeInterval)
-		emitArrayHistory["time"]?.append(newTime)
-		emitArrayHistory["faceDir"]?.append(emitArray["faceDir"] ?? 0.0)
-		print(emitArrayHistory)
-		drawLineChart(xValArr: emitArrayHistory["time"] ?? [0], yValArr: emitArrayHistory["faceDir"] ?? [0])
+		
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -200,11 +194,11 @@ extension emitViewController: ARSCNViewDelegate {
 		guard let faceAnchor = anchor as? ARFaceAnchor
 			else { return }
 //		var blendShapes = faceAnchor.blendShapes
-		emitArray["eyeL"] = round(asin(faceAnchor.leftEyeTransform.columns.2.x)*100)
-		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100)
-		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100)
+		emitArray["eyeL"] = round(asin(faceAnchor.leftEyeTransform.columns.2.x)*100) - defL
+		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100) - defR
+		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100) - defFaceDir
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
+			self.debugLabelView.text = "time: \(self.emitArrayHistory["time"]?.last ?? -1.0) L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
 		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
