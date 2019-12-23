@@ -22,6 +22,8 @@ class emitViewController: UIViewController {
 	@IBOutlet weak var urlInputField: UITextField!
 	@IBOutlet weak var iosChartsFigure: LineChartView!
 	
+	 var timer: Timer!
+	
 	enum direction {
 		case main
 		case sub
@@ -44,7 +46,7 @@ class emitViewController: UIViewController {
 	}
 	
 //	var socket = SocketIOManager()
-	//	let emitArrayHistory: [[String: Float]]!
+	var emitArrayHistory: [String: [Float]] = ["time": [0.00], "eyeL": [0.00], "eyeR": [0.00], "faceDir": [0.00]]
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
 	var selectedVirtualContent: VirtualContentType! {
@@ -97,9 +99,17 @@ class emitViewController: UIViewController {
 		let webUrl = URL(string: "https://www.google.com/?hl=ja")!
 		let myRequest = URLRequest(url: webUrl)
 		webView.load(myRequest)
-		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 		setChart()
-//		drawLineChart(xValArr: months, yValArr: emitArray)
+		timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+		timer.fire()
+	}
+	
+	@objc func update(tm: Timer) {
+		let newTime = Float(emitArrayHistory["time"]?.last ?? Float(0.0)) + Float(tm.timeInterval)
+		emitArrayHistory["time"]?.append(newTime)
+		emitArrayHistory["faceDir"]?.append(emitArray["faceDir"] ?? 0.0)
+		print(emitArrayHistory)
+		drawLineChart(xValArr: emitArrayHistory["time"] ?? [0], yValArr: emitArrayHistory["faceDir"] ?? [0])
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -279,7 +289,7 @@ extension emitViewController {
 		//x軸設定
 		iosChartsFigure.xAxis.labelPosition = .bottom //x軸ラベル下側に表示
 		iosChartsFigure.xAxis.labelFont = UIFont.systemFont(ofSize: 11) //x軸のフォントの大きさ
-		iosChartsFigure.xAxis.labelCount = Int(5) //x軸に表示するラベルの数
+		iosChartsFigure.xAxis.labelCount = Int(10) //x軸に表示するラベルの数
 		iosChartsFigure.xAxis.labelTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //x軸ラベルの色
 		iosChartsFigure.xAxis.axisLineColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //x軸の色
 		iosChartsFigure.xAxis.axisLineWidth = CGFloat(1) //x軸の太さ
@@ -290,13 +300,13 @@ extension emitViewController {
 		//y軸設定
 		iosChartsFigure.rightAxis.enabled = false //右軸(値)の表示
 		iosChartsFigure.leftAxis.enabled = true //左軸（値)の表示
-		iosChartsFigure.leftAxis.axisMaximum = 40 //y左軸最大値
-		iosChartsFigure.leftAxis.axisMinimum = 0 //y左軸最小値
+		iosChartsFigure.leftAxis.axisMaximum = 100 //y左軸最大値
+		iosChartsFigure.leftAxis.axisMinimum = -100 //y左軸最小値
 		iosChartsFigure.leftAxis.labelFont = UIFont.systemFont(ofSize: 11) //y左軸のフォントの大きさ
 		iosChartsFigure.leftAxis.labelTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //y軸ラベルの色
 		iosChartsFigure.leftAxis.axisLineColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1) //y左軸の色(今回はy軸消すためにBGと同じ色にしている)
 		iosChartsFigure.leftAxis.drawAxisLineEnabled = false //y左軸の表示(今回は表示しない)
-		iosChartsFigure.leftAxis.labelCount = Int(4) //y軸ラベルの表示数
+		iosChartsFigure.leftAxis.labelCount = Int(10) //y軸ラベルの表示数
 		iosChartsFigure.leftAxis.drawGridLinesEnabled = true //y軸のグリッド表示(今回は表示する)
 		iosChartsFigure.leftAxis.gridColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1) //y軸グリッドの色
 		
@@ -312,12 +322,12 @@ extension emitViewController {
 		iosChartsFigure.animate(xAxisDuration: 1.2, yAxisDuration: 1.5, easingOption: .easeInOutElastic)//グラフのアニメーション(秒数で設定)
 	}
 	//グラフ描画部分
-	func drawLineChart(xValArr: [String], yValArr: [Double]) {
+	func drawLineChart(xValArr: [Float], yValArr: [Float]) {
 		
 		var yValues : [ChartDataEntry] = [ChartDataEntry]()
 		
 		for i in 0 ..< xValArr.count {
-			let dataEntry = ChartDataEntry(x: Double(i), y: yValArr[i])
+			let dataEntry = ChartDataEntry(x: Double(i), y: Double(yValArr[i]))
 			yValues.append(dataEntry) //(ChartDataEntry(x: Double(i), y: dollars1[i]))
 		}
 		
