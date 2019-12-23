@@ -22,28 +22,7 @@ class emitViewController: UIViewController {
 	@IBOutlet weak var urlInputField: UITextField!
 	@IBOutlet weak var iosChartsFigure: LineChartView!
 	
-	 var timer: Timer!
-	
-	enum direction {
-		case main
-		case sub
-		var range: ClosedRange<Int> {
-			switch self {
-				case .main:
-					return 0...10
-				case .sub:
-					return 15...30
-			}
-		}
-		var textLabel: String {
-			switch self {
-				case .main:
-					return "メイン"
-				case .sub:
-					return "サブ"
-			}
-		}
-	}
+	var timer: Timer!
 	
 	var defFaceDir: Float =  0.0
 	var defL: Float = 0.0
@@ -211,6 +190,7 @@ extension emitViewController: ARSCNViewDelegate {
 	}
 }
 
+		}
 //extension emitViewController {
 //
 //	@IBAction func toggleRecording(_ sender: UIButton) {
