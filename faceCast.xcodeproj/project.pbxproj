@@ -15,6 +15,7 @@
 		3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C4921E89EC2C00E00B60 /* Assets.xcassets */; };
 		3929C49F1E89EE4400E00B60 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 3929C49E1E89EE4400E00B60 /* Models.scnassets */; };
 		39D8DC1B1E8ADAE600386B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */; };
+		4969140D23B0ACFD00387ECE /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 4969140C23B0ACFD00387ECE /* question.png */; };
 		49B2920023AA0EBD001FAA46 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B291FF23AA0EBD001FAA46 /* Charts.framework */; };
 		49B2920123AA0EBD001FAA46 /* Charts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49B291FF23AA0EBD001FAA46 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B6085FBE2201D6FC0004C2BA /* receiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */; };
@@ -55,6 +56,7 @@
 		3929C4971E89EC2C00E00B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3929C49E1E89EE4400E00B60 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4969140C23B0ACFD00387ECE /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
 		49B291FF23AA0EBD001FAA46 /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = Carthage/Build/iOS/Charts.framework; sourceTree = "<group>"; };
 		B6085FBD2201D6FC0004C2BA /* receiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = receiveViewController.swift; sourceTree = "<group>"; };
 		B6ABF3EE22333EBC007AE46E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				11F053B72130CCD2005FCAF2 /* ARFaceGeometry.obj */,
 				3929C49E1E89EE4400E00B60 /* Models.scnassets */,
 				3929C4921E89EC2C00E00B60 /* Assets.xcassets */,
+				4969140C23B0ACFD00387ECE /* question.png */,
 				3929C4971E89EC2C00E00B60 /* Info.plist */,
 				3929C48F1E89EC2C00E00B60 /* Main.storyboard */,
 				39D8DC1A1E8ADAE600386B05 /* LaunchScreen.storyboard */,
@@ -233,6 +236,7 @@
 				3929C4931E89EC2C00E00B60 /* Assets.xcassets in Resources */,
 				B6ABF3EF22333EBC007AE46E /* Default-568h@2x.png in Resources */,
 				3929C4911E89EC2C00E00B60 /* Main.storyboard in Resources */,
+				4969140D23B0ACFD00387ECE /* question.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

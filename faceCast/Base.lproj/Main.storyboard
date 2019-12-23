@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -95,24 +95,50 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-2o-HWO" customClass="LineChartView" customModule="Charts">
-                                        <rect key="frame" x="261" y="8" width="443" height="193"/>
+                                        <rect key="frame" x="261" y="8" width="443" height="161"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdu-a1-wQY">
+                                        <rect key="frame" x="261" y="177" width="70" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="6XX-RK-zl4"/>
+                                            <constraint firstAttribute="height" constant="24" id="uLX-Z9-qpE"/>
+                                        </constraints>
+                                        <state key="normal" title="SetZero"/>
+                                        <connections>
+                                            <action selector="setZero:" destination="BV1-FR-VrT" eventType="touchUpInside" id="KWa-0L-PoN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrw-Mv-Hjv">
+                                        <rect key="frame" x="339" y="177" width="34" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="78l-fh-aDn"/>
+                                        </constraints>
+                                        <state key="normal" title="Start"/>
+                                        <connections>
+                                            <action selector="startRecord:" destination="BV1-FR-VrT" eventType="touchUpInside" id="x68-Iv-Kqp"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="Ner-d8-9Lc" firstAttribute="top" secondItem="bdu-a1-wQY" secondAttribute="bottom" constant="8" id="Ayh-fE-a2W"/>
                                     <constraint firstAttribute="bottom" secondItem="Ner-d8-9Lc" secondAttribute="bottom" id="Ecm-dh-tMn"/>
                                     <constraint firstAttribute="trailing" secondItem="1h8-2o-HWO" secondAttribute="trailing" constant="8" id="KCp-dN-03p"/>
                                     <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="KkP-Tu-uvK"/>
+                                    <constraint firstItem="Ner-d8-9Lc" firstAttribute="top" secondItem="zrw-Mv-Hjv" secondAttribute="bottom" constant="8" id="M30-Cz-WyK"/>
                                     <constraint firstAttribute="height" constant="253" id="PnE-MQ-i7T"/>
                                     <constraint firstItem="1h8-2o-HWO" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="RNJ-RI-1uM"/>
                                     <constraint firstItem="Ner-d8-9Lc" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="Sxs-gj-t2D"/>
                                     <constraint firstItem="E6c-py-dvH" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" id="TeM-W5-Oz1"/>
                                     <constraint firstItem="1h8-2o-HWO" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="top" constant="8" id="VOi-Nn-Ep7"/>
                                     <constraint firstItem="E6c-py-dvH" firstAttribute="leading" secondItem="6DQ-I5-7gB" secondAttribute="leading" id="YTC-ZR-7Mc"/>
+                                    <constraint firstItem="bdu-a1-wQY" firstAttribute="leading" secondItem="E6c-py-dvH" secondAttribute="trailing" constant="8" id="iGe-Cy-2sC"/>
+                                    <constraint firstItem="zrw-Mv-Hjv" firstAttribute="top" secondItem="1h8-2o-HWO" secondAttribute="bottom" constant="8" id="n53-PS-Vt7"/>
+                                    <constraint firstItem="zrw-Mv-Hjv" firstAttribute="leading" secondItem="bdu-a1-wQY" secondAttribute="trailing" constant="8" id="rCf-yf-J1O"/>
                                     <constraint firstAttribute="trailing" secondItem="Ner-d8-9Lc" secondAttribute="trailing" constant="8" id="sJc-Zf-HyD"/>
                                     <constraint firstAttribute="bottom" secondItem="E6c-py-dvH" secondAttribute="bottom" id="xuS-Sh-vZ7"/>
-                                    <constraint firstItem="Ner-d8-9Lc" firstAttribute="top" secondItem="1h8-2o-HWO" secondAttribute="bottom" constant="8" id="yJi-IA-DH1"/>
+                                    <constraint firstItem="bdu-a1-wQY" firstAttribute="top" secondItem="1h8-2o-HWO" secondAttribute="bottom" constant="8" id="yJi-IA-DH1"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh1-nc-e8c" userLabel="HeaderView">
@@ -157,6 +183,15 @@
                                     <constraint firstItem="fxT-TV-ueY" firstAttribute="leading" secondItem="zlg-S0-eEv" secondAttribute="trailing" constant="8" id="rde-GP-LxI"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7kR-xe-WjO">
+                                <rect key="frame" x="604" y="596" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Dnk-YW-TiW"/>
+                                    <constraint firstAttribute="height" constant="100" id="If9-kA-7jG"/>
+                                    <constraint firstAttribute="width" constant="100" id="rZt-oE-Wn4"/>
+                                </constraints>
+                                <state key="normal" title="困った" image="question.png"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -170,9 +205,11 @@
                             <constraint firstItem="d27-hx-eNe" firstAttribute="bottom" secondItem="RLh-bf-1c3" secondAttribute="bottom" symbolic="YES" id="gEr-ol-2EN"/>
                             <constraint firstItem="6DQ-I5-7gB" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="ggq-1g-c0U"/>
                             <constraint firstItem="Zh1-nc-e8c" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="hqw-Si-Bht"/>
+                            <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="7kR-xe-WjO" secondAttribute="trailing" constant="8" id="rB9-Ht-I0u"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="leading" secondItem="GBj-4O-Whc" secondAttribute="leading" id="txU-4e-gMI"/>
                             <constraint firstItem="d27-hx-eNe" firstAttribute="top" secondItem="6DQ-I5-7gB" secondAttribute="bottom" id="wiC-ud-tsG"/>
                             <constraint firstItem="GBj-4O-Whc" firstAttribute="trailing" secondItem="6DQ-I5-7gB" secondAttribute="trailing" id="xIX-PP-owm"/>
+                            <constraint firstItem="6DQ-I5-7gB" firstAttribute="top" secondItem="7kR-xe-WjO" secondAttribute="bottom" constant="8" id="z3q-8w-Caf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GBj-4O-Whc"/>
                     </view>
@@ -233,6 +270,7 @@ Shipping apps must support devices without face tracking. In your app, offer UI 
         </scene>
     </scenes>
     <resources>
+        <image name="question.png" width="600" height="600"/>
         <image name="texture" width="28" height="28"/>
         <image name="transforms" width="28" height="28"/>
     </resources>

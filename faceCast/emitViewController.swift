@@ -190,7 +190,48 @@ extension emitViewController: ARSCNViewDelegate {
 	}
 }
 
+// MARK: Button
+extension emitViewController {
+	
+	@IBAction func setZero(_ sender: UIButton) {
+		defFaceDir = emitArray["faceDir"]  ?? 0.0
+		defL = emitArray["eyeL"] ?? 0.0
+		defR =  emitArray["eyeR"] ?? 0.0
+	}
+	
+	@IBAction func exportData(_ sender: UIButton) {
+		UIPasteboard.general.string = emitArrayHistory.description
+	}
+	
+	@IBAction func startRecord(_ sender: UIButton) {
+		timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+		timer.fire()
+	}
+	
+	@objc func update(tm: Timer) {
+		let lastTime: Float = floor((emitArrayHistory["time"]?.last ?? Float(0.0))*100)/100
+		let newTime = lastTime + Float(tm.timeInterval)
+		emitArrayHistory["time"]?.append(newTime)
+		emitArrayHistory["faceDir"]?.append(emitArray["faceDir"] ?? 0.0)
+		emitArrayHistory["eyeL"]?.append(emitArray["eyeL"] ?? 0.0)
+		emitArrayHistory["eyeR"]?.append(emitArray["eyeR"] ?? 0.0)
+		drawLineChart(xValArr: emitArrayHistory["time"] ?? [0], yValArr: emitArrayHistory["faceDir"] ?? [0])
+	}
+	
+	@IBAction func goButtonDidTouchUpInside(_ sender: UIButton) {
+		guard let urlstr = urlInputField.text else {
+			return
 		}
+		guard let webUrl = URL(string: urlstr) else {
+			return
+		}
+		let myRequest = URLRequest(url: webUrl)
+		webView.load(myRequest)
+	}
+	
+}
+
+// MARK:Screen Capture
 //extension emitViewController {
 //
 //	@IBAction func toggleRecording(_ sender: UIButton) {
@@ -236,21 +277,7 @@ extension emitViewController: ARSCNViewDelegate {
 //	}
 //}
 
-extension emitViewController {
-	
-	@IBAction func goButtonDidTouchUpInside(_ sender: UIButton) {
-		guard let urlstr = urlInputField.text else {
-			return
-		}
-		guard let webUrl = URL(string: urlstr) else {
-			return
-		}
-		let myRequest = URLRequest(url: webUrl)
-		webView.load(myRequest)
-	}
-	
-}
-
+// MARK::Graph
 extension emitViewController {
 	
 	func setChart(){
@@ -321,9 +348,9 @@ extension emitViewController {
 		ds.lineWidth = 3.0 //線の太さ
 		//ds.circleRadius = 0 //プロットの大きさ
 		ds.drawCirclesEnabled = false //プロットの表示(今回は表示しない)
-		ds.mode = .cubicBezier //曲線にする
+		ds.mode = .horizontalBezier //曲線にする
 		ds.fillAlpha = 0.8 //グラフの透過率(曲線は投下しない)
-		ds.drawFilledEnabled = true //グラフ下の部分塗りつぶし
+		ds.drawFilledEnabled = false //グラフ下の部分塗りつぶし
 		//ds.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //グラフ塗りつぶし色
 		ds.drawValuesEnabled = false //各プロットのラベル表示(今回は表示しない)
 		ds.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
