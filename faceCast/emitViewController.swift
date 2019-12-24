@@ -215,6 +215,12 @@ extension emitViewController {
 		emitArrayHistory["faceDir"]?.append(emitArray["faceDir"] ?? 0.0)
 		emitArrayHistory["eyeL"]?.append(emitArray["eyeL"] ?? 0.0)
 		emitArrayHistory["eyeR"]?.append(emitArray["eyeR"] ?? 0.0)
+		if emitArrayHistory.count > 100 {
+			emitArrayHistory["time"]?.removeFirst()
+			emitArrayHistory["faceDir"]?.removeFirst()
+			emitArrayHistory["eyeL"]?.removeFirst()
+			emitArrayHistory["eyeR"]?.removeFirst()
+		}
 		drawLineChart(xValArr: emitArrayHistory["time"] ?? [0], yValArr: emitArrayHistory["faceDir"] ?? [0])
 	}
 	
