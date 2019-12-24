@@ -23,13 +23,14 @@ class emitViewController: UIViewController {
 	@IBOutlet weak var iosChartsFigure: LineChartView!
 	
 	var timer: Timer!
+	var nowTime: Float = 0.0
 	
 	var defFaceDir: Float =  0.0
 	var defL: Float = 0.0
 	var defR: Float = 0.0
 	
 //	var socket = SocketIOManager()
-	var emitArrayHistory: [String: [Float]] = ["time": [0.00], "eyeL": [0.00], "eyeR": [0.00], "faceDir": [0.00]]
+	var emitArrayHistory: [String: [ChartDataEntry]] = ["eyeL": [], "eyeR": [], "faceDir": []]
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
 	var selectedVirtualContent: VirtualContentType! {
@@ -177,7 +178,7 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100) - defR
 		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100) - defFaceDir
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "time: \(self.emitArrayHistory["time"]?.last ?? -1.0) L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
+			self.debugLabelView.text = "time: \(self.nowTime) L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
 		}
 		do {
 			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
@@ -209,19 +210,19 @@ extension emitViewController {
 	}
 	
 	@objc func update(tm: Timer) {
-		let lastTime: Float = floor((emitArrayHistory["time"]?.last ?? Float(0.0))*100)/100
-		let newTime = lastTime + Float(tm.timeInterval)
-		emitArrayHistory["time"]?.append(newTime)
-		emitArrayHistory["faceDir"]?.append(emitArray["faceDir"] ?? 0.0)
-		emitArrayHistory["eyeL"]?.append(emitArray["eyeL"] ?? 0.0)
-		emitArrayHistory["eyeR"]?.append(emitArray["eyeR"] ?? 0.0)
+		nowTime += Float(tm.timeInterval)
+		let dataEntryF = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["faceDir"] ?? 0.0))
+		emitArrayHistory["faceDir"]?.append(dataEntryF)
+		let dataEntryL = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeL"] ?? 0.0))
+		emitArrayHistory["eyeL"]?.append(dataEntryL)
+		let dataEntryR = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeR"] ?? 0.0))
+		emitArrayHistory["eyeR"]?.append(dataEntryR)
 		if emitArrayHistory.count > 100 {
-			emitArrayHistory["time"]?.removeFirst()
 			emitArrayHistory["faceDir"]?.removeFirst()
 			emitArrayHistory["eyeL"]?.removeFirst()
 			emitArrayHistory["eyeR"]?.removeFirst()
 		}
-		drawLineChart(xValArr: emitArrayHistory["time"] ?? [0], yValArr: emitArrayHistory["faceDir"] ?? [0])
+		drawLineChart(emitArrayHistory)
 	}
 	
 	@IBAction func goButtonDidTouchUpInside(_ sender: UIButton) {
@@ -329,17 +330,9 @@ extension emitViewController {
 		iosChartsFigure.animate(xAxisDuration: 1.2, yAxisDuration: 1.5, easingOption: .easeInOutElastic)//グラフのアニメーション(秒数で設定)
 	}
 	//グラフ描画部分
-	func drawLineChart(xValArr: [Float], yValArr: [Float]) {
-		
-		var yValues : [ChartDataEntry] = [ChartDataEntry]()
-		
-		for i in 0 ..< xValArr.count {
-			let dataEntry = ChartDataEntry(x: Double(i), y: Double(yValArr[i]))
-			yValues.append(dataEntry) //(ChartDataEntry(x: Double(i), y: dollars1[i]))
-		}
+	func drawLineChart(_ values:  [String: [ChartDataEntry]]) {
 		
 		let data = LineChartData()
-		let ds = LineChartDataSet(entries: yValues, label: "Months") //ds means DataSet
 		
 		////グラフのUI設定
 		//グラフのグラデーション有効化
@@ -347,23 +340,43 @@ extension emitViewController {
 		let colorLocations:[CGFloat] = [0.7, 0.0] // Positioning of the gradient
 		let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) // Gradient Object
 		
-		ds.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0) // Set the Gradient
-		
-		
-		//その他UI設定
-		ds.lineWidth = 3.0 //線の太さ
-		//ds.circleRadius = 0 //プロットの大きさ
-		ds.drawCirclesEnabled = false //プロットの表示(今回は表示しない)
-		ds.mode = .horizontalBezier //曲線にする
-		ds.fillAlpha = 0.8 //グラフの透過率(曲線は投下しない)
-		ds.drawFilledEnabled = false //グラフ下の部分塗りつぶし
+		let faceDirDataset = LineChartDataSet(entries: values["faceDir"], label: "face") //ds means DataSet
+		faceDirDataset.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0) // Set the Gradient
+		faceDirDataset.lineWidth = 3.0 //線の太さ
+		faceDirDataset.circleRadius = 0.5 //プロットの大きさ
+		faceDirDataset.drawCirclesEnabled = true //プロットの表示
+		faceDirDataset.mode = .horizontalBezier
+		faceDirDataset.fillAlpha = 0.8 //グラフの透過率(曲線は投下しない)
+		faceDirDataset.drawFilledEnabled = false //グラフ下の部分塗りつぶし
 		//ds.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //グラフ塗りつぶし色
-		ds.drawValuesEnabled = false //各プロットのラベル表示(今回は表示しない)
-		ds.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
-		ds.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)] //Drawing graph
-		////グラフのUI設定
+		faceDirDataset.drawValuesEnabled = true //各プロットのラベル表示
+		faceDirDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
+		faceDirDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)] //Drawing graph
 		
-		data.addDataSet(ds)
+		let eyeLeftDataset = LineChartDataSet(entries:values["eyeL"], label: "L")
+		eyeLeftDataset.lineWidth = 3.0
+		eyeLeftDataset.circleRadius = 0.5 //プロットの大きさ
+		eyeLeftDataset.drawCirclesEnabled = true //プロットの表示
+		eyeLeftDataset.mode = .horizontalBezier
+		eyeLeftDataset.fillAlpha = 0.8
+		eyeLeftDataset.drawFilledEnabled = false
+		eyeLeftDataset.drawValuesEnabled = true //各プロットのラベル表示
+		eyeLeftDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
+		eyeLeftDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)] //Drawing graph
+		let eyeRightDataset =  LineChartDataSet(entries: values["eyeR"], label: "R")
+		eyeRightDataset.lineWidth = 3.0
+		eyeRightDataset.circleRadius = 0.5
+		eyeRightDataset.drawCirclesEnabled = true
+		eyeRightDataset.mode = .horizontalBezier
+		eyeRightDataset.fillAlpha = 0.8
+		eyeRightDataset.drawFilledEnabled = false
+		eyeRightDataset.drawValuesEnabled = true
+		eyeRightDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+		eyeRightDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
+		
+		data.addDataSet(faceDirDataset)
+		data.addDataSet(eyeLeftDataset)
+		data.addDataSet(eyeRightDataset)
 		
 		self.iosChartsFigure.data = data
 	}
