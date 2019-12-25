@@ -362,7 +362,7 @@ extension emitViewController {
 		eyeLeftDataset.drawFilledEnabled = false
 		eyeLeftDataset.drawValuesEnabled = true //各プロットのラベル表示
 		eyeLeftDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
-		eyeLeftDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)] //Drawing graph
+		eyeLeftDataset.colors = [#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)] //Drawing graph
 		let eyeRightDataset =  LineChartDataSet(entries: values["eyeR"], label: "R")
 		eyeRightDataset.lineWidth = 3.0
 		eyeRightDataset.circleRadius = 0.5
@@ -372,7 +372,7 @@ extension emitViewController {
 		eyeRightDataset.drawFilledEnabled = false
 		eyeRightDataset.drawValuesEnabled = true
 		eyeRightDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-		eyeRightDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
+		eyeRightDataset.colors = [#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)]
 		
 		data.addDataSet(faceDirDataset)
 		data.addDataSet(eyeLeftDataset)
