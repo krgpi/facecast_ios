@@ -179,7 +179,7 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100) - defR
 		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100) - defFaceDir
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "time: \(round(self.nowTime*100)/100), L: \(self.emitArray["eyeL"] ?? 0), R: \(self.emitArray["eyeR"] ?? 0), face: \(self.emitArray["faceDir"] ?? 0), confused: \((round(self.confusedTime.last ?? 0.0)*1000)/1000)"
+			self.debugLabelView.text = "time: \(round(self.nowTime*100)/100), L: \(self.emitArray["eyeL"] ?? 0), R: \(self.emitArray["eyeR"] ?? 0), face: \(self.emitArray["faceDir"] ?? 0), confused: \(self.confusedTime.last ?? 0.0)"
 		}
 //		do {
 //			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
@@ -218,7 +218,7 @@ extension emitViewController {
 	}
 	
 	@IBAction func confuseButton(_ sender: UIButton) {
-		confusedTime.append(nowTime)
+		confusedTime.append(round(self.nowTime*100)/100)
 		let image = iosChartsFigure.getChartImage(transparent: true)
 		UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
 	}
