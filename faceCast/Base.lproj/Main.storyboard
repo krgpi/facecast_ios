@@ -110,19 +110,20 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zrw-Mv-Hjv">
-                                        <rect key="frame" x="339" y="177" width="34" height="24"/>
+                                        <rect key="frame" x="339" y="177" width="38" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="78l-fh-aDn"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <action selector="startRecord:" destination="BV1-FR-VrT" eventType="touchUpInside" id="x68-Iv-Kqp"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzk-jb-Pcl">
-                                        <rect key="frame" x="388" y="174" width="32" height="30"/>
+                                        <rect key="frame" x="387" y="174" width="34" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="save"/>
+                                        <state key="normal" title="Save"/>
                                         <connections>
                                             <action selector="exportData:" destination="BV1-FR-VrT" eventType="touchUpInside" id="9UK-yq-chL"/>
                                         </connections>
@@ -199,6 +200,9 @@
                                     <constraint firstAttribute="width" constant="100" id="rZt-oE-Wn4"/>
                                 </constraints>
                                 <state key="normal" title="困った" image="question.png"/>
+                                <connections>
+                                    <action selector="confuseButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="EX7-BZ-gua"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

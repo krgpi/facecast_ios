@@ -30,6 +30,7 @@ class emitViewController: UIViewController {
 	var defR: Float = 0.0
 	
 //	var socket = SocketIOManager()
+	var confusedTime: [Float] = [0.0]
 	var emitArrayHistory: [String: [ChartDataEntry]] = ["eyeL": [], "eyeR": [], "faceDir": []]
 	var emitArray:[String: Float] = ["eyeL": 0.00, "eyeR": 0.00, "faceDir": 0.00]
 	var contentControllers: [VirtualContentType: VirtualContentController] = [:]
@@ -178,15 +179,15 @@ extension emitViewController: ARSCNViewDelegate {
 		emitArray["eyeR"] = round(asin(faceAnchor.rightEyeTransform.columns.2.x)*100) - defR
 		emitArray["faceDir"] = round(asin(faceAnchor.transform.columns.2.x)*100) - defFaceDir
 		DispatchQueue.main.async {
-			self.debugLabelView.text = "time: \(self.nowTime) L: \(self.emitArray["eyeL"] ?? 0),R: \(self.emitArray["eyeR"] ?? 0),face: \(self.emitArray["faceDir"] ?? 0)"
+			self.debugLabelView.text = "time: \(round(self.nowTime*100)/100), L: \(self.emitArray["eyeL"] ?? 0), R: \(self.emitArray["eyeR"] ?? 0), face: \(self.emitArray["faceDir"] ?? 0), confused: \((round(self.confusedTime.last ?? 0.0)*100)/100)"
 		}
-		do {
-			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
-			let str = String(bytes: e, encoding: .utf8)
+//		do {
+//			let e = try JSONSerialization.data(withJSONObject: emitArray, options: .prettyPrinted)
+//			let str = String(bytes: e, encoding: .utf8)
 //			socket.socketIOClient.emit("chat message", str!)
-		} catch  {
-			print("err")
-		}
+//		} catch  {
+//			print("err")
+//		}
 		selectedContentController.renderer(renderer, didUpdate: contentNode, for: anchor)
 	}
 }
@@ -208,25 +209,36 @@ extension emitViewController {
 	@IBAction func startRecord(_ sender: UIButton) {
 		if timer?.isValid ?? false {
 			timer.invalidate()
+			sender.titleLabel?.text = "Start"
 		} else {
 			timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
 			timer.fire()
+			sender.titleLabel?.text = "Stop"
 		}
 	}
 	
+	@IBAction func confuseButton(_ sender: UIButton) {
+		confusedTime.append(nowTime)
+		let image = iosChartsFigure.getChartImage(transparent: true)
+		UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+	}
+	
 	@objc func update(tm: Timer) {
-		nowTime += Float(tm.timeInterval)
-		let dataEntryF = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["faceDir"] ?? 0.0))
-		emitArrayHistory["faceDir"]?.append(dataEntryF)
-		let dataEntryL = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeL"] ?? 0.0))
-		emitArrayHistory["eyeL"]?.append(dataEntryL)
-		let dataEntryR = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeR"] ?? 0.0))
-		emitArrayHistory["eyeR"]?.append(dataEntryR)
 		if emitArrayHistory["faceDir"]?.count ?? 0 > 100 {
 			emitArrayHistory["faceDir"]?.removeFirst()
 			emitArrayHistory["eyeL"]?.removeFirst()
 			emitArrayHistory["eyeR"]?.removeFirst()
 		}
+		nowTime += 0.100000000000
+		guard let dataF = emitArray["faceDir"] else {
+			return
+		}
+		let dataEntryF = ChartDataEntry(x: Double(nowTime), y: Double(dataF))
+		emitArrayHistory["faceDir"]?.append(dataEntryF)
+		let dataEntryL = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeL"] ?? 0.0))
+		emitArrayHistory["eyeL"]?.append(dataEntryL)
+		let dataEntryR = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeR"] ?? 0.0))
+		emitArrayHistory["eyeR"]?.append(dataEntryR)
 		drawLineChart(emitArrayHistory)
 	}
 	
