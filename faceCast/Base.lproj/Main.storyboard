@@ -119,6 +119,14 @@
                                             <action selector="startRecord:" destination="BV1-FR-VrT" eventType="touchUpInside" id="x68-Iv-Kqp"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzk-jb-Pcl">
+                                        <rect key="frame" x="388" y="174" width="32" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="save"/>
+                                        <connections>
+                                            <action selector="exportData:" destination="BV1-FR-VrT" eventType="touchUpInside" id="9UK-yq-chL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>

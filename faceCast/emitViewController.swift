@@ -200,13 +200,18 @@ extension emitViewController {
 		defR =  emitArray["eyeR"] ?? 0.0
 	}
 	
-	@IBAction func exportData(_ sender: UIButton) {
-		UIPasteboard.general.string = emitArrayHistory.description
+	@IBAction func exportData(_ sender: UIButton?) {
+		let image = iosChartsFigure.getChartImage(transparent: true)
+		UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
 	}
 	
 	@IBAction func startRecord(_ sender: UIButton) {
-		timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
-		timer.fire()
+		if timer?.isValid ?? false {
+			timer.invalidate()
+		} else {
+			timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+			timer.fire()
+		}
 	}
 	
 	@objc func update(tm: Timer) {
@@ -298,8 +303,8 @@ extension emitViewController {
 		iosChartsFigure.xAxis.labelPosition = .bottom //x軸ラベル下側に表示
 		iosChartsFigure.xAxis.labelFont = UIFont.systemFont(ofSize: 11) //x軸のフォントの大きさ
 		iosChartsFigure.xAxis.labelCount = Int(10) //x軸に表示するラベルの数
-		iosChartsFigure.xAxis.labelTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //x軸ラベルの色
-		iosChartsFigure.xAxis.axisLineColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //x軸の色
+		iosChartsFigure.xAxis.labelTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //x軸ラベルの色
+		iosChartsFigure.xAxis.axisLineColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //x軸の色
 		iosChartsFigure.xAxis.axisLineWidth = CGFloat(1) //x軸の太さ
 		iosChartsFigure.xAxis.drawGridLinesEnabled = false //x軸のグリッド表示(今回は表示しない)
 		//			iosChartsFigure.xAxis.valueFormatter = lineChartFormatter() //x軸の仕様
@@ -311,7 +316,7 @@ extension emitViewController {
 		iosChartsFigure.leftAxis.axisMaximum = 100 //y左軸最大値
 		iosChartsFigure.leftAxis.axisMinimum = -100 //y左軸最小値
 		iosChartsFigure.leftAxis.labelFont = UIFont.systemFont(ofSize: 11) //y左軸のフォントの大きさ
-		iosChartsFigure.leftAxis.labelTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //y軸ラベルの色
+		iosChartsFigure.leftAxis.labelTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //y軸ラベルの色
 		iosChartsFigure.leftAxis.axisLineColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1) //y左軸の色(今回はy軸消すためにBGと同じ色にしている)
 		iosChartsFigure.leftAxis.drawAxisLineEnabled = false //y左軸の表示(今回は表示しない)
 		iosChartsFigure.leftAxis.labelCount = Int(10) //y軸ラベルの表示数
@@ -320,13 +325,13 @@ extension emitViewController {
 		
 		//その他UI設定
 		iosChartsFigure.noDataFont = UIFont.systemFont(ofSize: 30) //Noデータ時の表示フォント
-		iosChartsFigure.noDataTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //Noデータ時の文字色
+		iosChartsFigure.noDataTextColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) //Noデータ時の文字色
 		iosChartsFigure.noDataText = "Keep Waiting" //Noデータ時に表示する文字
 		iosChartsFigure.legend.enabled = false //"■ months"のlegendの表示
 		iosChartsFigure.dragDecelerationEnabled = true //指を離してもスクロール続くか
 		iosChartsFigure.dragDecelerationFrictionCoef = 0.6 //ドラッグ時の減速スピード(0-1)
 		iosChartsFigure.chartDescription?.text = nil //Description(今回はなし)
-		iosChartsFigure.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1) //Background Color
+		iosChartsFigure.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //Background Color
 		iosChartsFigure.animate(xAxisDuration: 1.2, yAxisDuration: 1.5, easingOption: .easeInOutElastic)//グラフのアニメーション(秒数で設定)
 	}
 	//グラフ描画部分
@@ -342,8 +347,8 @@ extension emitViewController {
 		
 		let faceDirDataset = LineChartDataSet(entries: values["faceDir"], label: "face") //ds means DataSet
 		faceDirDataset.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0) // Set the Gradient
-		faceDirDataset.lineWidth = 3.0 //線の太さ
-		faceDirDataset.circleRadius = 0.5 //プロットの大きさ
+		faceDirDataset.lineWidth = 1.0 //線の太さ
+		faceDirDataset.circleRadius = 1.5 //プロットの大きさ
 		faceDirDataset.drawCirclesEnabled = true //プロットの表示
 		faceDirDataset.mode = .horizontalBezier
 		faceDirDataset.fillAlpha = 0.8 //グラフの透過率(曲線は投下しない)
@@ -351,11 +356,11 @@ extension emitViewController {
 		//ds.fillColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //グラフ塗りつぶし色
 		faceDirDataset.drawValuesEnabled = true //各プロットのラベル表示
 		faceDirDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
-		faceDirDataset.colors = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)] //Drawing graph
+		faceDirDataset.colors = [#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)] //Drawing graph
 		
 		let eyeLeftDataset = LineChartDataSet(entries:values["eyeL"], label: "L")
-		eyeLeftDataset.lineWidth = 3.0
-		eyeLeftDataset.circleRadius = 0.5 //プロットの大きさ
+		eyeLeftDataset.lineWidth = 1.0
+		eyeLeftDataset.circleRadius = 1.5 //プロットの大きさ
 		eyeLeftDataset.drawCirclesEnabled = true //プロットの表示
 		eyeLeftDataset.mode = .horizontalBezier
 		eyeLeftDataset.fillAlpha = 0.8
@@ -364,8 +369,8 @@ extension emitViewController {
 		eyeLeftDataset.highlightColor = #colorLiteral(red: 1, green: 0.8392156959, blue: 0.9764705896, alpha: 1) //各点を選択した時に表示されるx,yの線
 		eyeLeftDataset.colors = [#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)] //Drawing graph
 		let eyeRightDataset =  LineChartDataSet(entries: values["eyeR"], label: "R")
-		eyeRightDataset.lineWidth = 3.0
-		eyeRightDataset.circleRadius = 0.5
+		eyeRightDataset.lineWidth = 1.0
+		eyeRightDataset.circleRadius = 1.5
 		eyeRightDataset.drawCirclesEnabled = true
 		eyeRightDataset.mode = .horizontalBezier
 		eyeRightDataset.fillAlpha = 0.8
