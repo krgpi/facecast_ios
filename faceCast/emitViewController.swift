@@ -217,7 +217,7 @@ extension emitViewController {
 		emitArrayHistory["eyeL"]?.append(dataEntryL)
 		let dataEntryR = ChartDataEntry(x: Double(nowTime), y: Double(emitArray["eyeR"] ?? 0.0))
 		emitArrayHistory["eyeR"]?.append(dataEntryR)
-		if emitArrayHistory.count > 100 {
+		if emitArrayHistory["faceDir"]?.count ?? 0 > 100 {
 			emitArrayHistory["faceDir"]?.removeFirst()
 			emitArrayHistory["eyeL"]?.removeFirst()
 			emitArrayHistory["eyeR"]?.removeFirst()
